@@ -51,7 +51,10 @@ fun WarungLoginScreen(navController: NavController) {
 
                 Spacer(modifier = Modifier.height(50.dp))
 
-                Greeting(greeting = "Welcome", caption = "Sign in to continue.")
+                Greeting(
+                    greeting = "Welcome",
+                    caption = "Sign in to continue."
+                )
 
                 Spacer(modifier = Modifier.height(60.dp))
 
@@ -85,7 +88,7 @@ fun WarungLoginScreen(navController: NavController) {
                     label = "Sign In",
                     showIcon = true
                 ) {
-                    navController.navigate(WarungScreens.HomeScreen.name)
+                    navController.navigate(WarungScreens.ProductScreen.name)
                 }
             }
         }

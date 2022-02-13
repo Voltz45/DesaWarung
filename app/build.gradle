@@ -63,6 +63,8 @@ dependencies {
     implementation "com.google.accompanist:accompanist-permissions:0.24.1-alpha"
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.24.1-alpha"
 
+    //Icons
+    implementation "androidx.compose.material:material-icons-extended:$compose_version"
 
     //Hilt
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"

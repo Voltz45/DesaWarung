@@ -1,10 +1,17 @@
 package com.desacode.desawarung.utils
 
 import android.Manifest
+import android.app.Activity
+import android.content.Context
+import android.os.Handler
+import android.os.Looper
+import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
@@ -126,5 +133,23 @@ fun ChangeSystemBarColor(
                 color = systemBarColor
             )
         }
+    }
+}
+
+@Composable
+fun BackButtonHandler(activity: Activity?, counterBack: MutableState<Int>, context: Context) {
+    BackHandler(true) {
+        counterBack.value += 1
+        if (counterBack.value > 1) activity?.finish()
+        else Toast.makeText(
+            context,
+            "Please Click again to close this app",
+            Toast.LENGTH_LONG
+        ).show()
+
+        Handler(Looper.getMainLooper()).postDelayed(
+            Runnable { counterBack.value = 0 },
+            10000
+        )
     }
 }

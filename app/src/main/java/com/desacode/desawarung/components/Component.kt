@@ -7,16 +7,14 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
-import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -24,7 +22,9 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.desacode.desawarung.R
+import com.desacode.desawarung.navigation.WarungScreens
 import com.desacode.desawarung.ui.theme.BlueDesa
 import com.desacode.desawarung.ui.theme.CursorColor
 
@@ -39,16 +39,21 @@ fun WarungLogo() {
 }
 
 @Composable
-fun Greeting(greeting: String, caption: String) {
+fun Greeting(
+    greeting: String,
+    caption: String,
+    textStyleGreeting: TextStyle = MaterialTheme.typography.h3,
+    textStyleCaption: TextStyle = MaterialTheme.typography.body1
+) {
     Column {
         Text(
             text = greeting,
-            style = MaterialTheme.typography.h3,
+            style = textStyleGreeting,
             fontWeight = FontWeight.Bold
         )
         Text(
             text = caption,
-            style = MaterialTheme.typography.caption
+            style = textStyleCaption
         )
     }
 }
@@ -112,8 +117,9 @@ fun EmailInput(
 @Composable
 fun PasswordVisibility(passwordVisibility: MutableState<Boolean>) {
     val visible = passwordVisibility.value
+    val icon = if (visible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
     IconButton(onClick = { passwordVisibility.value = !visible }) {
-        Icon(imageVector = Icons.Default.Clear, contentDescription = "pass")
+        Icon(imageVector = icon, contentDescription = "pass")
     }
 }
 
@@ -146,7 +152,9 @@ fun PasswordInput(
         visualTransformation = visualTransformation,
         placeholder = { Text(text = placeHolder) },
         leadingIcon = { Icon(imageVector = Icons.Default.Lock, contentDescription = "lock_icon") },
-        trailingIcon = { PasswordVisibility(passwordVisibility = passwordVisibility) },
+        trailingIcon = {
+            PasswordVisibility(passwordVisibility = passwordVisibility)
+        },
         keyboardActions = onAction,
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Password,
@@ -211,6 +219,29 @@ fun SignButton(
                         tint = Color.White
                     )
                 }
+            }
+        }
+    }
+}
+
+@Composable
+fun WarungTopBar(modifier: Modifier = Modifier, navController: NavController, isHomeScreen: Boolean = true) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        if (isHomeScreen){
+            Greeting(
+                greeting = "Hi, James",
+                caption = "superadmin",
+                textStyleGreeting = MaterialTheme.typography.h4
+            )
+            IconButton(onClick = { navController.navigate(WarungScreens.NotificationScreen.name) }) {
+                Icon(
+                    imageVector = Icons.Default.NotificationsNone,
+                    contentDescription = "Notification_icon"
+                )
             }
         }
     }
