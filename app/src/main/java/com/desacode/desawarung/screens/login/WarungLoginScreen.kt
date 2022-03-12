@@ -17,12 +17,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.desacode.desawarung.components.*
 import com.desacode.desawarung.navigation.WarungScreens
-import com.desacode.desawarung.utils.ChangeSystemBarColor
+import com.desacode.desawarung.utils.*
 
 @ExperimentalComposeUiApi
 @Composable
@@ -36,14 +38,14 @@ fun WarungLoginScreen(navController: NavController) {
     }
     val keyboardController = LocalFocusManager.current
     val passwordFocusRequest = FocusRequester.Default
+
     ChangeSystemBarColor(statusBarColor = Color.Black, navBarColor = Color.Transparent)
     Surface(
         modifier = Modifier
             .fillMaxSize()
-            .padding(20.dp)
+            .padding(30.dp)
     ) {
         LazyColumn(
-            modifier = Modifier.padding(top = 30.dp),
             horizontalAlignment = Alignment.Start
         ) {
             item {
@@ -78,7 +80,17 @@ fun WarungLoginScreen(navController: NavController) {
                     }
                 )
 
-                Spacer(modifier = Modifier.height(220.dp))
+                Spacer(
+                    modifier = Modifier
+                        .mediaQuery(
+                            Dimensions.Height lessThan 760.dp,
+                            modifier = Modifier.height(150.dp)
+                        )
+                        .mediaQuery(
+                            Dimensions.Height greaterThan 760.dp,
+                            modifier = Modifier.height(180.dp)
+                        )
+                )
 
                 CheckBox(checkState = check, caption = "Remember me next time")
 

@@ -32,13 +32,13 @@ fun WarungSplashScreen(navController: NavHostController) {
     val alphaAnim = animateFloatAsState(
         targetValue = if (startAnimation) 1f else 0f,
         animationSpec = tween(
-            durationMillis = 3000
+            durationMillis = 800
         )
     )
 
     LaunchedEffect(key1 = true) {
         startAnimation = true
-        delay(500)
+        delay(1000)
         navController.navigate(WarungScreens.LoginScreen.name)
     }
 
@@ -69,10 +69,10 @@ fun Splash(alpha: Float) {
             )
             Text(
                 text = "Desacode",
-                style = MaterialTheme.typography.h4,
+                style = MaterialTheme.typography.h5,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
-                modifier = Modifier.padding(start = 5.dp)
+                modifier = Modifier.padding(start = 5.dp, top = 8.dp)
                     .alpha(alpha)
             )
         }

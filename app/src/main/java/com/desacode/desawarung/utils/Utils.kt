@@ -21,6 +21,10 @@ import com.google.accompanist.permissions.MultiplePermissionsState
 import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.google.zxing.BarcodeFormat
+import com.journeyapps.barcodescanner.BarcodeCallback
+import com.journeyapps.barcodescanner.BarcodeResult
+import com.journeyapps.barcodescanner.DefaultDecoderFactory
 
 @ExperimentalPermissionsApi
 fun PermissionState.permanentlyDeclined(): Boolean {
@@ -152,4 +156,8 @@ fun BackButtonHandler(activity: Activity?, counterBack: MutableState<Int>, conte
             10000
         )
     }
+}
+
+fun ScannerView() {
+
 }
